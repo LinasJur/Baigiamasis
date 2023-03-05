@@ -60,7 +60,7 @@ public class BookController {
             newBookData.setAuthor(newBook.getAuthor());
             newBookData.setDescription(newBook.getDescription());
             newBookData.setGenre(newBook.getGenre());
-            newBookData.setLenght(newBook.getLenght());
+            newBookData.setLength(newBook.getLength());
             newBookData.setPrice(newBook.getPrice());
             newBookData.setComment(newBook.getComment());
 

@@ -34,7 +34,7 @@ public class Book {
     private String genre;
 
     @Column(name = "LENGHT", nullable = false)
-    private Long lenght;
+    private Long length;
 
     @Column(name = "PRICE", nullable = false)
     private Long price;
@@ -43,6 +43,7 @@ public class Book {
     private String comment;
 
     @Column(name = "CREATE_DATE")
+    @Builder.Default
     private LocalDateTime createDate = LocalDateTime.now();
 
 
