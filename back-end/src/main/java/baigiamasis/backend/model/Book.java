@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name = "BOOK")
+@Table(name = "BOOKS")
 @AllArgsConstructor
 @Setter
 @Getter
@@ -34,7 +34,7 @@ public class Book {
     @Column(name = "GENRE", nullable = false)
     private String genre;
 
-    @Column(name = "LENGHT", nullable = false)
+    @Column(name = "LENGTH", nullable = false)
     private Long length;
 
     @Column(name = "PRICE", nullable = false)
