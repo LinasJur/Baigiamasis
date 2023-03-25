@@ -15,7 +15,7 @@ const getBookById = (bookId) =>
 const createBook = (book) => HTTP.post("/books/create", book);
 
 const createBookJson = (book) =>
-    HTTP.post("/books", { ...book, name: book.bookName }).then(
+    HTTP.post("/books/create", { ...book, title: book.bookTitle }).then(
         (response) =>
             new Promise((resolve) => {
                 setTimeout(() => resolve(response.data), 5000);

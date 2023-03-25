@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Button, CircularProgress, IconButton, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import {useBook} from "../../api/BooksApi";
+import {useBook} from "../api/BooksApi";
 import { useState } from "react";
 import { Translation } from "react-i18next";
 import Grid from "@mui/material/Grid";
@@ -66,8 +66,14 @@ const Books = () => {
                                     <Typography>{listBook.genre}</Typography>
                                 </CardContent>
                                 <CardActions>
-                                    <Button size="small" onClick={() => navigate(`/books/${listBook.id}`)}>View</Button>
-                                    <Button size="small" onClick={() => navigate(`/books/${listBook.id}`)}>Edit</Button>
+                                    <Translation>
+                                        {(t, { i18n }) => (
+                                            <>
+                                                <Button size="small" onClick={() => navigate(`/books/${listBook.id}`)}>{t("mView")}</Button>
+                                                <Button size="small" onClick={""}>{t("mEdit")}</Button>
+                                            </>
+                                        )}
+                                    </Translation>
                                 </CardActions>
                             </Card>
                         </Grid>

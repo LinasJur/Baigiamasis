@@ -50,9 +50,9 @@ function DashboardContent() {
                     <Toolbar/>
                     <Container maxWidth="lg" sx={{mt: 4, mb: 4}}>
                         <Grid container spacing={3}>
-                            <Grid item xs={12}>
+                            <Grid item xs={12}  sm={6} md={15}>
                                 <Paper sx={{p: 2, display: 'flex', flexDirection: 'column'}}>
-                                    <Pages />
+                                    <Pages/>
                                 </Paper>
                             </Grid>
                         </Grid>

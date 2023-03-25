@@ -1,5 +1,5 @@
 import React from 'react';
-import { useBookById } from '../../api/BooksApi';
+import { useBookById } from '../api/BooksApi';
 import { useParams } from 'react-router-dom';
 
 const ViewBook = () => {
@@ -12,11 +12,11 @@ const ViewBook = () => {
                 <div>Loading...</div>
             ) : book?.id ? (
                 <div>
-                    <h1>{book.title}</h1>
-                    <p>{book.author}</p>
-                    <p>{book.genre}</p>
-                    <p>{book.description}</p>
-                    <p>{book.published}</p>
+                    <h1 align={"center"}>{book.title}</h1>
+                    <p align={"center"}>{book.author}</p>
+                    <p align={"center"}>{book.genre}</p>
+                    <p align={"center"}>{book.description}</p>
+                    <p align={"center"}>{book.length}</p>
                 </div>
             ) : (
                 <div>Book not found</div>

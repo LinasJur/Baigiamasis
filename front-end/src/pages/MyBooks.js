@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {Translation} from "react-i18next";
 
 
 
@@ -41,9 +42,15 @@ export default function MyBooks() {
                             spacing={2}
                             justifyContent="center"
                         >
-                            <Button variant="contained">Skaitomos</Button>
-                            <Button variant="contained">Noriu skaityti</Button>
-                            <Button variant="contained">Perskaitytos</Button>
+                            <Translation>
+                                {(t, { i18n }) => (
+                                    <>
+                                        <Button variant="contained">{t("mReading")}</Button>
+                                        <Button variant="contained">{t("mToRead")}</Button>
+                                        <Button variant="contained">{t("mRead")}</Button>
+                                    </>
+                                )}
+                            </Translation>
                         </Stack>
                     </Container>
                 </Box>

@@ -37,7 +37,7 @@ public class Book {
     @Column(name = "LENGTH", nullable = false)
     private Long length;
 
-    @Column(name = "STATUS", nullable = false)
+    @Column(name = "STATUS")
     private String status;
 
     @Column(name = "CREATE_DATE")

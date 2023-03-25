@@ -32,8 +32,19 @@ public class BookController {
 
 
     @PostMapping("/create")
-    public String createBook(@RequestBody BookDto bookDto) {
-          return bookService.createBook(bookDto);
+    public String createBook(@RequestParam("title") String title,
+                             @RequestParam("author") String author,
+                             @RequestParam("description") String description,
+                             @RequestParam("genre") String genre,
+                             @RequestParam("length") Long length){
+        BookDto dto = BookDto.builder()
+                .title(title)
+                .author(author)
+                .description(description)
+                .genre(genre)
+                .length(length)
+                .build();
+          return bookService.createBook(dto);
     }
 
 //   @PostMapping("/updateBookById/{id}")
