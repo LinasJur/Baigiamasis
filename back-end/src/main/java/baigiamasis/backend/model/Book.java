@@ -37,11 +37,8 @@ public class Book {
     @Column(name = "LENGTH", nullable = false)
     private Long length;
 
-    @Column(name = "PRICE", nullable = false)
-    private Long price;
-
-    @Column(name = "COMMENT", nullable = false)
-    private String comment;
+    @Column(name = "STATUS", nullable = false)
+    private String status;
 
     @Column(name = "CREATE_DATE")
     @Builder.Default

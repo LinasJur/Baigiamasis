@@ -1,7 +1,7 @@
 package baigiamasis.backend.services.impl;
 
-import baigiamasis.backend.model.Book;
 import baigiamasis.backend.dto.BookDto;
+import baigiamasis.backend.model.Book;
 import baigiamasis.backend.repositories.BookRepository;
 import baigiamasis.backend.services.BookService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,8 +34,7 @@ public class BookServiceImpl implements BookService {
                         .description(o.getDescription())
                         .genre(o.getGenre())
                         .length(o.getLength())
-                        .price(o.getPrice())
-                        .comment(o.getComment())
+                        .status(o.getStatus())
                         .createDate(o.getCreateDate())
                         .build())
                 .collect(Collectors.toList());
@@ -48,15 +48,54 @@ public class BookServiceImpl implements BookService {
         return newBook.getId() != null ? "success" : "failed";
     }
 
+    @Override
+    public BookDto getBookById(Long id) {
+        Optional<Book> optionalBook = bookRepository.findById(id);
+        if (optionalBook.isPresent()) {
+            Book book = optionalBook.get();
+            return mapToDto(book);
+        }
+        return null;
+    }
+
+    private BookDto mapToDto(Optional<Book> book) {
+        if (book.isPresent()) {
+            return BookDto.builder()
+                    .id(book.get().getId())
+                    .title(book.get().getTitle())
+                    .author(book.get().getAuthor())
+                    .description(book.get().getDescription())
+                    .genre(book.get().getGenre())
+                    .length(book.get().getLength())
+                    .status(book.get().getStatus())
+                    .createDate(book.get().getCreateDate())
+                    .build();
+        }
+        return null;
+    }
+
+    private BookDto mapToDto(Book entity) {
+        return BookDto.builder()
+                .id(entity.getId())
+                .title(entity.getTitle())
+                .author(entity.getAuthor())
+                .description(entity.getDescription())
+                .genre(entity.getGenre())
+                .length(entity.getLength())
+                .status(entity.getStatus())
+                .createDate(entity.getCreateDate())
+                .build();
+    }
+
+
     private Book buildNewBook(BookDto bookDto) {
         return Book.builder()
                 .author(bookDto.getAuthor())
                 .title(bookDto.getTitle())
                 .description(bookDto.getDescription())
                 .genre(bookDto.getGenre())
+                .status(bookDto.getStatus())
                 .length(bookDto.getLength())
-                .price(bookDto.getPrice())
-                .comment(bookDto.getComment())
                 .build();
     }
 }

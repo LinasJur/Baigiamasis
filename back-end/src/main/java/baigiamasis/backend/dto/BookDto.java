@@ -22,8 +22,7 @@ public class BookDto {
     private String description;
     private String genre;
     private Long length;
-    private Long price;
-    private String comment;
+    private String status;
 
     @JsonFormat(pattern = DATE_MINUTE_FORMAT )
     private LocalDateTime createDate;

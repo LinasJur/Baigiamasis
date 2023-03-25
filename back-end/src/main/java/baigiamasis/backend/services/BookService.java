@@ -8,5 +8,8 @@ public interface BookService {
     List<BookDto> getAllBooks();
     String createBook(BookDto bookDto);
 
+    BookDto getBookById(Long id);
 
+
+    ;
 }

@@ -13,4 +13,6 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query(value = "SELECT * FROM BOOKS", nativeQuery = true)
     List<Book> getAllBooks();
+
+
 }

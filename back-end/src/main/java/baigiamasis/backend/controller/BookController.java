@@ -3,6 +3,7 @@ package baigiamasis.backend.controller;
 
 import baigiamasis.backend.dto.BookDto;
 import baigiamasis.backend.services.BookService;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +11,8 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping()
+@RequestMapping("/books")
+@Api
 public class BookController {
 
 
@@ -23,6 +25,10 @@ public class BookController {
 
     }
 
+    @GetMapping("/{id}")
+    public BookDto getBookById(@PathVariable Long id) {
+        return bookService.getBookById(id);
+    }
 
 
     @PostMapping("/create")
