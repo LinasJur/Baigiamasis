@@ -58,21 +58,23 @@ public class BookServiceImpl implements BookService {
         return null;
     }
 
-    private BookDto mapToDto(Optional<Book> book) {
-        if (book.isPresent()) {
-            return BookDto.builder()
-                    .id(book.get().getId())
-                    .title(book.get().getTitle())
-                    .author(book.get().getAuthor())
-                    .description(book.get().getDescription())
-                    .genre(book.get().getGenre())
-                    .length(book.get().getLength())
-                    .status(book.get().getStatus())
-                    .createDate(book.get().getCreateDate())
-                    .build();
+    @Override
+    public String updateBook(BookDto bookDto) {
+        Optional<Book> optionalBook = bookRepository.findById(bookDto.getId());
+        if (optionalBook.isPresent()) {
+            Book book = optionalBook.get();
+            book.setTitle(bookDto.getTitle());
+            book.setAuthor(bookDto.getAuthor());
+            book.setDescription(bookDto.getDescription());
+            book.setGenre(bookDto.getGenre());
+            book.setLength(bookDto.getLength());
+            bookRepository.save(book);
+            return "Book with ID " + book.getId() + " has been updated successfully.";
+        } else {
+            return "Book not found.";
         }
-        return null;
     }
+
 
     private BookDto mapToDto(Book entity) {
         return BookDto.builder()

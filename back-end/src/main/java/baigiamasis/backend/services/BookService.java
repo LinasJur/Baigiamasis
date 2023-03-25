@@ -10,6 +10,8 @@ public interface BookService {
 
     BookDto getBookById(Long id);
 
+    String updateBook(BookDto dto);
+
 
     ;
 }

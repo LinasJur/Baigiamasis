@@ -1,8 +1,41 @@
 import * as React from "react";
 import { Button, Dialog, DialogTitle, DialogContent, TextField, DialogContentText, DialogActions} from "@mui/material";
-import { createBook } from "../api/BooksApi";
+import { createBook } from "../../api/BooksApi";
 import {Translation} from "react-i18next";
+import * as Yup from 'yup'
 
+
+
+const validate = Yup.object().shape({
+    title: Yup.string()
+        .min(3, ({label, min}) => `${label} must be greater than ${min} chars`)
+        .max(50)
+        .required()
+        .label("Title"),
+    author: Yup.string()
+        .min(3, ({label, min}) => `${label} must be greater than ${min} chars`)
+        .max(50)
+        .required()
+        .label("Author"),
+    description: Yup.string()
+        .min(3, ({label, min}) => `${label} must be greater than ${min} chars`)
+        .max(255)
+        .required()
+        .label("Description"),
+    genre: Yup.string()
+        .min(3, ({label, min}) => `${label} must be greater than ${min} chars`)
+        .max(255)
+        .required()
+        .label("Genre"),
+    length: Yup.number()
+        .positive("Length must be positive")
+        .max(255)
+        .required(),
+    status: Yup.string()
+        .min(0)
+        .max(255)
+        .label("Status")
+})
 const AddBook = () => {
     const [open, setOpen] = React.useState(false);
     const [title, setTitle] = React.useState("");

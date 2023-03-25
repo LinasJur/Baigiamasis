@@ -14,7 +14,6 @@ export const AppMainMenu = (
         <MenuItem label={t("mMyBooks")} matchSubPaths link="/myBooks" icon={<LibraryBooksIcon />} />
         <MenuItem label={t("mSearch")} link="/search" icon={<SearchIcon />} />
         <MenuItem label={t("mAddNewBook")} link="/addNewBook" icon={<AddIcon />} />
-
       </>
     )}
   </Translation>

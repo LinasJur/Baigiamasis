@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, CircularProgress, IconButton, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { Button} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import {useBook} from "../api/BooksApi";
 import { useState } from "react";
@@ -20,7 +20,6 @@ const Books = () => {
 
     const navigate = useNavigate();
     const { isFetching, books = [], refetch } = useBook();
-    const [editProduct, setEditProduct] = useState(null);
     const theme = createTheme();
 
     const noBooksElement = !books.length && (
@@ -70,7 +69,7 @@ const Books = () => {
                                         {(t, { i18n }) => (
                                             <>
                                                 <Button size="small" onClick={() => navigate(`/books/${listBook.id}`)}>{t("mView")}</Button>
-                                                <Button size="small" onClick={""}>{t("mEdit")}</Button>
+                                                <Button size="small" onClick={() => navigate(`/editBook/${listBook.id}`)}>{t("mEdit")}</Button>
                                             </>
                                         )}
                                     </Translation>
