@@ -3,10 +3,13 @@ import { Button, Dialog, DialogTitle, DialogContent, TextField, DialogContentTex
 import { createBook } from "../../api/BooksApi";
 import {Translation} from "react-i18next";
 import * as Yup from 'yup'
+import {useNavigate} from "react-router-dom";
+import {useFormik} from "formik";
 
 
 
-const validate = Yup.object().shape({
+
+const validationSchema = Yup.object().shape({
     title: Yup.string()
         .min(3, ({label, min}) => `${label} must be greater than ${min} chars`)
         .max(50)
@@ -29,42 +32,61 @@ const validate = Yup.object().shape({
         .label("Genre"),
     length: Yup.number()
         .positive("Length must be positive")
-        .max(255)
-        .required(),
-    status: Yup.string()
-        .min(0)
-        .max(255)
-        .label("Status")
+        .max(5000)
+        .required()
 })
+
 const AddBook = () => {
     const [open, setOpen] = React.useState(false);
-    const [title, setTitle] = React.useState("");
-    const [author, setAuthor] = React.useState("");
-    const [description, setDescription] = React.useState("");
-    const [genre, setGenre] = React.useState("");
-    const [length, setLength] = React.useState("");
-    const [status, setStatus] = React.useState("");
+    const navigate = useNavigate();
 
+    const formik = useFormik({
+        initialValues: {
+            title: "",
+            author: "",
+            description: "",
+            genre: "",
+            length: "",
+            status: "",
+            touched: {
+                title: false,
+                author: false,
+                description: false,
+                genre: false,
+                length: false,
+                status: false,
+            },
+        },
+        validationSchema,
+        onSubmit: async (values, { setTouched }) => {
+            setTouched({
+                title: true,
+                author: true,
+                description: true,
+                genre: true,
+                length: true,
+                status: true,
+            });
+            if (formik.isValid) {
+                console.log("added something");
+                await createBook(getFormData(values));
+                handleClose();
+            }
+        },
+    });
 
-    const handleClick = () => {
-        setOpen(!open);
+    const handleClose = () => {
+        setOpen(false);
+        formik.resetForm();
     };
 
-    const addNewBook = async () => {
-        console.log("added something");
-        await createBook(getFormData());
-        handleClick();
-    };
-
-
-    const getFormData = () => {
+    const getFormData = (values) => {
         const formData = new FormData();
-        formData.append("title", title);
-        formData.append("author", author);
-        formData.append("description", description);
-        formData.append("genre", genre);
-        formData.append("length", length);
-        formData.append("status", status)
+        formData.append("title", values.title);
+        formData.append("author", values.author);
+        formData.append("description", values.description);
+        formData.append("genre", values.genre);
+        formData.append("length", values.length);
         return formData;
     };
 
@@ -72,27 +94,77 @@ const AddBook = () => {
         <Translation>
         {(t, { i18n }) => (
         <>
-            <Dialog open={open} onClose={handleClick}>
-                <DialogTitle>{t("mAddNewBook")}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>To add new book, press ADD button</DialogContentText>
-                    <TextField autoFocus margin="dense" id="title" label={t("mTitle")} type="text" fullWidth variant="standard" value={title} onChange={(event) => setTitle(event.target.value)} />
-                    <TextField autoFocus margin="dense" id="author" label={t("mAuthor")} type="text" fullWidth variant="standard" value={author} onChange={(event) => setAuthor(event.target.value)} />
-                    <TextField autoFocus margin="dense" id="description" label={t("mDescription")} type="text" fullWidth variant="standard" value={description} onChange={(event) => setDescription(event.target.value)} />
-                    <TextField autoFocus margin="dense" id="genre" label={t("mGenre")} type="text" fullWidth variant="standard" value={genre} onChange={(event) => setGenre(event.target.value)} />
-                    <TextField autoFocus margin="dense" id="length" label={t("mLength")} type="number" fullWidth variant="standard" value={length} onChange={(event) => setLength(event.target.value)} />
-                    <TextField autoFocus margin="dense" id="status" label={t("mStatus")} type="text" fullWidth variant="standard" value={status} onChange={(event) => setStatus(event.target.value)} />
+                    <DialogContentText>{t("mAddBookText")}</DialogContentText>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="title"
+                        label={t("mTitle")}
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                        {...formik.getFieldProps("title")}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.title && Boolean(formik.errors.title)}
+                        helperText={formik.touched.title && formik.errors.title}
+                    />
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="author"
+                        label={t("mAuthor")}
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                        {...formik.getFieldProps("author")}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.author && Boolean(formik.errors.author)}
+                        helperText={formik.touched.author && formik.errors.author}
+                    />
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="description"
+                        label={t("mDescription")}
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                        {...formik.getFieldProps("description")}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.description && Boolean(formik.errors.description)}
+                        helperText={formik.touched.description && formik.errors.description}
+                    />
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="genre"
+                        label={t("mGenre")}
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                        {...formik.getFieldProps("genre")}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.genre && Boolean(formik.errors.genre)}
+                        helperText={formik.touched.genre && formik.errors.genre}
+                    />
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="length"
+                        label={t("mLength")}
+                        type="number"
+                        fullWidth
+                        variant="standard"
+                        {...formik.getFieldProps("length")}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.length && Boolean(formik.errors.length)}
+                        helperText={formik.touched.length && formik.errors.length}
+                    />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={addNewBook}>{t("mAdd")}</Button>
-                    <Button onClick={handleClick}>{t("mCancel")}</Button>
+                    <Button onClick={formik.handleSubmit}>{t("mAdd")}</Button>
                 </DialogActions>
-            </Dialog>
-            <div style={{ marginTop: "10px", textAlign: "center" }}>
-                <Button variant="outlined" onClick={handleClick}>
-                    {t("mAddNewBook")}
-                </Button>
-            </div>
         </>
         )}
         </Translation>

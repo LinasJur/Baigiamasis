@@ -1,17 +1,15 @@
 import {Route, Routes} from "react-router-dom";
-import MyBooks from "../../pages/MyBooks";
-import Search from "../../pages/Search";
-import Books from "../../pages/Books"
+import MyBooks from "../../pages/books/MyBooks";
+import Books from "../../pages/books/Books"
 import Signup from "../../pages/Signup";
-import ViewBook from "../../pages/ViewBook";
+import ViewBook from "../../pages/books/ViewBook";
 import AddNewBook from "../../pages/books/AddNewBook"
-import EditBook from "../EditBook";
+import EditBook from "../../pages/books/EditBook";
 
 const Pages = () => (
     <Routes>
         <Route path="/" element={<Books />}/>
         <Route path="/myBooks" element={<MyBooks/>}/>
-        <Route path="/search" element={<Search />}/>
         <Route path="/signup" element={<Signup />}/>
         <Route path="/books/:id" element={<ViewBook />}/>
         <Route path="/addNewBook" element={<AddNewBook />}/>

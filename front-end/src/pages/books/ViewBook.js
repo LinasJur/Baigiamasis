@@ -1,25 +1,23 @@
 import React, { useState } from 'react';
-import {updateBook, useBookById} from '../api/BooksApi';
+import {updateBook, useBookById} from '../../api/BooksApi';
 import {useNavigate, useParams} from 'react-router-dom';
 import {Translation} from "react-i18next";
 
 const ViewBook = () => {
     const { id } = useParams();
     const { isLoading, data: book } = useBookById(id);
-    const [selectedOption, setSelectedOption] = useState('');
+    const [selectedOption, setSelectedOption] = useState("reading");
     const navigate = useNavigate();
     const handleOptionChange = (event) => {
         setSelectedOption(event.target.value);
     };
 
-    const updatedBook = {
-        ...book,
-        status:selectedOption
-    };
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        await updateBook(id, updatedBook);
+        console.log(selectedOption)
+        await updateBook(id,{...book, status:selectedOption} );
         navigate('/');
     };
 

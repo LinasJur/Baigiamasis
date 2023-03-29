@@ -8,26 +8,35 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {Translation} from "react-i18next";
+import {useBook} from "../../api/BooksApi";
+import books from "./Books";
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
 
 const theme = createTheme();
 
 export default function MyBooks() {
+
+    const [selectedStatus, setSelectedStatus] = useState("reading");
+    const navigate = useNavigate();
+    const {  books = [] } = useBook();
+    const reading = books.filter(book => book.status == "reading");
+    const toRead = books.filter(book => book.status == "toRead");
+    const read = books.filter(book => book.status == "read");
+    const filteredBooks = selectedStatus === "reading" ? reading : selectedStatus === "toRead" ? toRead : read;
+
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-
             <main>
-                {/* Hero unit */}
                 <Box
                     sx={{
                         bgcolor: 'background.paper',
@@ -45,9 +54,9 @@ export default function MyBooks() {
                             <Translation>
                                 {(t, { i18n }) => (
                                     <>
-                                        <Button variant="contained">{t("mReading")}</Button>
-                                        <Button variant="contained">{t("mToRead")}</Button>
-                                        <Button variant="contained">{t("mRead")}</Button>
+                                        <Button variant="contained" onClick={() => setSelectedStatus("reading")}>{t("mReading")}</Button>
+                                        <Button variant="contained" onClick={() => setSelectedStatus("toRead")}>{t("mToRead")}</Button>
+                                        <Button variant="contained" onClick={() => setSelectedStatus("read")}>{t("mRead")}</Button>
                                     </>
                                 )}
                             </Translation>
@@ -55,13 +64,15 @@ export default function MyBooks() {
                     </Container>
                 </Box>
                 <Container sx={{ py: 8 }} maxWidth="md">
-                    {/* End hero unit */}
                     <Grid container spacing={4}>
-                        {cards.map((card) => (
-                            <Grid item key={card} xs={12} sm={6} md={4}>
+                        {filteredBooks.map((book) => (
+                            <Grid item key={book.id} xs={12} sm={6} md={4}>
                                 <Card
                                     sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                                 >
+                                    <CardContent sx={{ flexGrow: 1 }}>
+                                        <Typography> <h1>{book.title}</h1></Typography>
+                                    </CardContent>
                                     <CardMedia
                                         component="img"
                                         sx={{
@@ -72,17 +83,18 @@ export default function MyBooks() {
                                         alt="random"
                                     />
                                     <CardContent sx={{ flexGrow: 1 }}>
-                                        <Typography gutterBottom variant="h5" component="h2">
-                                            Heading
-                                        </Typography>
-                                        <Typography>
-                                            This is a media card. You can use this section to describe the
-                                            content.
-                                        </Typography>
+                                        <Typography>{book.author}</Typography>
+                                        <Typography>{book.genre}</Typography>
                                     </CardContent>
                                     <CardActions>
-                                        <Button size="small">View</Button>
-                                        <Button size="small">Edit</Button>
+                                        <Translation>
+                                            {(t, { i18n }) => (
+                                                <>
+                                                    <Button size="small" onClick={() => navigate(`/books/${book.id}`)}>{t("mView")}</Button>
+                                                    <Button size="small" onClick={() => navigate(`/editBook/${book.id}`)}>{t("mEdit")}</Button>
+                                                </>
+                                            )}
+                                        </Translation>
                                     </CardActions>
                                 </Card>
                             </Grid>

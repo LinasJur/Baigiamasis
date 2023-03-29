@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Button} from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import {useBook} from "../api/BooksApi";
+import {useBook} from "../../api/BooksApi";
 import { Translation } from "react-i18next";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -16,8 +16,12 @@ import {createTheme, ThemeProvider} from "@mui/material/styles";
 const Books = () => {
 
     const navigate = useNavigate();
-    const { isFetching, books = [], refetch } = useBook();
+    const {  books = [] } = useBook();
     const theme = createTheme();
+    const bookStatus = books.filter(book => book.status !== "");
+
+
+
 
     const noBooksElement = !books.length && (
         <Grid container spacing={4} columnSpacing={"center"} direction={"center"}>
@@ -26,14 +30,20 @@ const Books = () => {
                         sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                     >
                         <CardContent sx={{ flexGrow: 1 }}>
+                            <Translation>
+                                {(t, { i18n }) => (
                             <Typography gutterBottom variant="h5" component="h2">
-                                No Books Found
+                                {t("mNotFOundBooks")}
                             </Typography>
+                                )}
+                            </Translation>
                         </CardContent>
                     </Card>
                 </Grid>
         </Grid>
     );
+
+
 
     const booksElement = books.map((listBook, i) => (
         <ThemeProvider theme={theme}>
