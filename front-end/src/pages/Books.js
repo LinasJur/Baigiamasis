@@ -2,7 +2,6 @@ import * as React from "react";
 import { Button} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import {useBook} from "../api/BooksApi";
-import { useState } from "react";
 import { Translation } from "react-i18next";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -13,8 +12,6 @@ import CardActions from "@mui/material/CardActions";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
-
-
 
 const Books = () => {
 
@@ -44,7 +41,7 @@ const Books = () => {
             <main>
                 <Container sx={{ py: 8 }} maxWidth="md">
                     <Grid container spacing={4}>
-                        <Grid item key={i} xs={12} sm={6} md={4}>
+                        <Grid item key={listBook} xs={12} sm={6} md={4}>
                             <Card
                                 sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                             >

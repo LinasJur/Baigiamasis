@@ -30,22 +30,10 @@ public class BookController {
         return bookService.getBookById(id);
     }
 
-    @PutMapping("{id}")
-    public String updateBookById(@PathVariable Long id,
-                                 @RequestParam("title") String title,
-                                 @RequestParam("author") String author,
-                                 @RequestParam("description") String description,
-                                 @RequestParam("genre") String genre,
-                                 @RequestParam("length") Long length) {
-        BookDto dto = BookDto.builder()
-                .id(id)
-                .title(title)
-                .author(author)
-                .description(description)
-                .genre(genre)
-                .length(length)
-                .build();
-        return bookService.updateBook(dto);
+    @PutMapping("/{id}")
+    public String updateBookById(@PathVariable Long id, @RequestBody BookDto bookDto) {
+        bookDto.setId(id);
+        return bookService.updateBook(bookDto);
     }
 
 
@@ -54,7 +42,8 @@ public class BookController {
                              @RequestParam("author") String author,
                              @RequestParam("description") String description,
                              @RequestParam("genre") String genre,
-                             @RequestParam("length") Long length){
+                             @RequestParam("length") Long length)
+                             {
         BookDto dto = BookDto.builder()
                 .title(title)
                 .author(author)

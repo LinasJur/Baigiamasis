@@ -5,7 +5,7 @@ import Books from "../../pages/Books"
 import Signup from "../../pages/Signup";
 import ViewBook from "../../pages/ViewBook";
 import AddNewBook from "../../pages/books/AddNewBook"
-import EditBook from "../../pages/books/EditBook";
+import EditBook from "../EditBook";
 
 const Pages = () => (
     <Routes>

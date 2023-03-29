@@ -68,6 +68,7 @@ public class BookServiceImpl implements BookService {
             book.setDescription(bookDto.getDescription());
             book.setGenre(bookDto.getGenre());
             book.setLength(bookDto.getLength());
+            book.setStatus(bookDto.getStatus());
             bookRepository.save(book);
             return "Book with ID " + book.getId() + " has been updated successfully.";
         } else {
@@ -88,7 +89,6 @@ public class BookServiceImpl implements BookService {
                 .createDate(entity.getCreateDate())
                 .build();
     }
-
 
     private Book buildNewBook(BookDto bookDto) {
         return Book.builder()

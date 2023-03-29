@@ -15,7 +15,7 @@ import Pages from "./Pages";
 const mdTheme = createTheme({
     palette: {
         primary: {
-            main: "#12803a",
+            main: "#000000",
         },
         secondary: {
             light: red[700],

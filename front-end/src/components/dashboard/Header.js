@@ -58,7 +58,7 @@ const Header = ({ drawerWidth, open, toggleDrawer }) => {
           <MenuIcon />
         </IconButton>
         <Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
-          E-Shop
+          Knygų rojus!!!
         </Typography>
 
         <Button
