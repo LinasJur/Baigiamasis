@@ -6,9 +6,6 @@ import * as Yup from 'yup'
 import {useNavigate} from "react-router-dom";
 import {useFormik} from "formik";
 
-
-
-
 const validationSchema = Yup.object().shape({
     title: Yup.string()
         .min(3, ({label, min}) => `${label} must be greater than ${min} chars`)
@@ -35,11 +32,9 @@ const validationSchema = Yup.object().shape({
         .max(5000)
         .required()
 })
-
 const AddBook = () => {
     const [open, setOpen] = React.useState(false);
     const navigate = useNavigate();
-
     const formik = useFormik({
         initialValues: {
             title: "",

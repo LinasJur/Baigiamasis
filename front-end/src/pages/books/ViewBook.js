@@ -29,11 +29,11 @@ const ViewBook = () => {
                 <div>Loading...</div>
             ) : book?.id ? (
                 <div align={"center"}>
-                    <h1 align={'center'}>{book.title}</h1>
-                    <p align={'center'}>{book.author}</p>
-                    <p align={'center'}>{book.genre}</p>
-                    <p align={'center'}>{book.description}</p>
-                    <p align={'center'}>{book.length}</p>
+                    <h1 align={'center'}>{t("mTitle")+ (": ")}{book.title}</h1>
+                    <p align={'center'}>{t("mAuthor")+ (": ")}{book.author}</p>
+                    <p align={'center'}>{t("mGenre")+ (": ")}{book.genre}</p>
+                    <p align={'center'}>{t("mDescription")+ (": ")}{book.description}</p>
+                    <p align={'center'}>{t("mLength")+ (": ")}{book.length}</p>
 
                     <form onSubmit={handleSubmit} >
                         <label>

@@ -68,6 +68,8 @@ export default function MyBooks() {
                     <Grid container spacing={4}>
                         {filteredBooks.map((book) => (
                             <Grid item key={book.id} xs={12} sm={6} md={4}>
+                                <Translation>
+                                    {(t, { i18n }) => (
                                 <Card
                                     sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                                 >
@@ -84,20 +86,20 @@ export default function MyBooks() {
                                         alt="random"
                                     />
                                     <CardContent sx={{ flexGrow: 1 }}>
-                                        <Typography>{book.author}</Typography>
-                                        <Typography>{book.genre}</Typography>
+                                        <Typography>{t("mAuthor")+(": ")}{book.author}</Typography>
+                                        <Typography>{t("mGenre")+(": ")}{book.genre}</Typography>
                                     </CardContent>
                                     <CardActions>
-                                        <Translation>
-                                            {(t, { i18n }) => (
+
                                                 <>
                                                     <Button size="small" onClick={() => navigate(`/books/${book.id}`)}>{t("mView")}</Button>
                                                     <Button size="small" onClick={() => navigate(`/editBook/${book.id}`)}>{t("mEdit")}</Button>
                                                 </>
-                                            )}
-                                        </Translation>
+
                                     </CardActions>
                                 </Card>
+                                )}
+                            </Translation>
                             </Grid>
                         ))}
                     </Grid>
